@@ -14,16 +14,9 @@ export default function DrawerLayout() {
       }}
     >
       <Drawer.Screen
-          name="orders"
-          options={{
-            headerTitle: "",
-          }}
-        />
-
-      <Drawer.Screen
-        name="kitchen"
+        name="dashboard"
         options={{
-          title: "Kitchen",
+          headerTitle: "",
         }}
       />
 
@@ -33,11 +26,25 @@ export default function DrawerLayout() {
           title: "Analytics",
         }}
       />
+      
+      <Drawer.Screen
+          name="orders"
+          options={{
+            headerTitle: "",
+          }}
+        />
+
+      <Drawer.Screen
+        name="kitchen"
+        options={{
+          headerTitle: "",
+        }}
+      />
 
       <Drawer.Screen
         name="settings"
         options={{
-          title: "Settings",
+          headerTitle: "",
         }}
       />
     </Drawer>

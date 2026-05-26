@@ -20,6 +20,8 @@ export default function KitchenScreen() {
   const [loadingOrderId, setLoadingOrderId] =
     useState<string | null>(null);
 
+  const [hiddenOrders, setHiddenOrders] =
+    useState<string[]>([]);
   async function fetchOrders() {
     try {
       const res = await axios.get(
@@ -33,7 +35,12 @@ export default function KitchenScreen() {
         }
       );
 
-      setOrders(res.data);
+      const filteredOrders = res.data.filter(
+        (order: any) =>
+          !hiddenOrders.includes(order.id)
+      );
+
+      setOrders(filteredOrders);
     } catch (err) {
       console.log(err);
     }
@@ -79,6 +86,11 @@ export default function KitchenScreen() {
       setLoadingOrderId(orderId);
 
       // OPTIMISTIC UI
+      setHiddenOrders((prev) => [
+        ...prev,
+        orderId,
+      ]);
+      
       setOrders((prev: any[]) =>
         prev.filter(
           (order) => order.id !== orderId
@@ -95,7 +107,9 @@ export default function KitchenScreen() {
       );
     } catch (err) {
       console.log(err);
-
+      setHiddenOrders((prev) =>
+        prev.filter((id) => id !== orderId)
+      );
       fetchOrders();
     } finally {
       setLoadingOrderId(null);
