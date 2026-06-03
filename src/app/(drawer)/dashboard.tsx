@@ -14,7 +14,7 @@
 
   export default function DashboardScreen() {
     const { user } = useAuth();
-
+    console.log("USER =", user);
     const [analytics, setAnalytics] = useState<any>(
       null
     );
