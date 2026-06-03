@@ -16,12 +16,15 @@ import { router } from "expo-router";
 import { useAuth } from "../../context/AuthContext";
 
 export default function OrdersScreen() {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
 
   const [orders, setOrders] = useState<any[]>([]);
 
   const [loadingOrderId, setLoadingOrderId] =
     useState<string | null>(null);
+  
+  const [initialLoading, setInitialLoading] =
+  useState(true);
 
   const [hiddenOrders, setHiddenOrders] =
     useState<string[]>([]);
@@ -48,6 +51,9 @@ export default function OrdersScreen() {
       setOrders(filteredOrders);
     } catch (err) {
       console.log(err);
+    }
+    finally {
+      setInitialLoading(false);
     }
   }
 
@@ -142,7 +148,7 @@ export default function OrdersScreen() {
   }
 
   useEffect(() => {
-    if (loading) return;
+    if (!user) return;
 
     if (!user) {
       router.replace("/login");
@@ -154,10 +160,29 @@ export default function OrdersScreen() {
     const interval = setInterval(fetchOrders, 5000);
 
     return () => clearInterval(interval);
-  }, [user, loading]);
+  }, [user]);
 
-  if (loading || !user) {
-    return null;
+  if (initialLoading) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center", 
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: "#6b7280",
+              fontSize: 16,
+            }}
+          >
+            Loading orders...
+          </Text>
+        </View>
+      </SafeAreaView>
+    );
   }
 
   return (

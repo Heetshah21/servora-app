@@ -42,6 +42,13 @@ export default function DrawerLayout() {
       />
 
       <Drawer.Screen
+        name="qr"
+        options={{
+          title: "QR Generator",
+        }}
+      />
+
+      <Drawer.Screen
         name="settings"
         options={{
           headerTitle: "",

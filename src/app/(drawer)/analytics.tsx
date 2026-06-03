@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     TextInput,
   } from "react-native";
-  
+
+
   import { useEffect, useState } from "react";
   
   import axios from "axios";
@@ -214,11 +215,23 @@ import {
             </View>
           )}
   
-          {loading ? (
-            <Text style={styles.loading}>
-              Loading...
-            </Text>
-          ) : (
+              {loading ? (
+              <View
+                style={{
+                  paddingVertical: 40,
+                  alignItems: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#6b7280",
+                    fontSize: 16,
+                  }}
+                >
+                  Loading analytics...
+                </Text>
+              </View>
+            ) : (
             <View style={styles.grid}>
               {cards.map((card) => (
                 <View
@@ -319,12 +332,7 @@ import {
       color: "white",
       fontWeight: "700",
     },
-  
-    loading: {
-      marginTop: 20,
-      color: "#6b7280",
-    },
-  
+    
     grid: {
       gap: 14,
     },
